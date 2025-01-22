@@ -19,6 +19,27 @@ CREATE TABLE persona (
   telefono VARCHAR(20) NOT NULL
 );
 
+CREATE TABLE habitacion (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  habitacionpiso INT NOT NULL CHECK (habitacionpiso > 0 AND habitacionpiso <= 10),
+  habitacionnro INT NOT NULL CHECK (habitacionnro > 0 AND habitacionnro <= 20),
+  cantcamas INT NOT NULL CHECK (cantcamas >= 1 AND cantcamas <= 4),
+  tienetelevision BOOLEAN NOT NULL DEFAULT FALSE,
+  tienefrigobar BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE reserva (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  fechareserva TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  fechaentrada DATE NOT NULL,
+  fechasalida DATE NOT NULL,
+  habitacionid INT NOT NULL,
+  personaid INT NOT NULL,
+  montoreserva DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (habitacionid) REFERENCES habitacion(id) ON DELETE CASCADE,
+  FOREIGN KEY (personaid) REFERENCES persona(id) ON DELETE CASCADE
+);
+
 
 # Docker Compose
 - Proyecto dockerizado

@@ -9,6 +9,13 @@ app.use(express.json());
 const personasRoutes = require('./routes/personas');
 app.use('/personas', personasRoutes);
 
+const habitacionesRoutes = require('./routes/habitaciones');
+app.use('/habitaciones', habitacionesRoutes);
+
+const reservasRoutes = require('./routes/reservas');
+app.use('/reservas', reservasRoutes);
+
+
 app.get('/', (req, res) => {
   res.send('API funcionando correctamente');
 });

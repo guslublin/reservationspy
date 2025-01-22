@@ -29,7 +29,7 @@ const App = () => {
                     </Routes>
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>
-                    Reservations Py ©2025 Created by Gustavo
+                    Reservations Py ©2025 Created by Gus Lublin
                 </Footer>
             </Layout>
         </Router>
