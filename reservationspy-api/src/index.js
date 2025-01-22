@@ -5,7 +5,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Importar rutas
 const personasRoutes = require('./routes/personas');
 app.use('/personas', personasRoutes);
 

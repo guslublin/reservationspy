@@ -2,30 +2,6 @@ const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
 
-// Función para validar la reserva
-const validateReservation = async (fechaentrada, fechasalida, habitacionid) => {
-    const [exists] = await db.query(
-      `SELECT COUNT(*) AS count FROM reserva 
-       WHERE habitacionid = ? 
-       AND ((? BETWEEN fechaentrada AND fechasalida) 
-       OR (? BETWEEN fechaentrada AND fechasalida) 
-       OR (fechaentrada BETWEEN ? AND ?) 
-       OR (fechasalida BETWEEN ? AND ?))`,
-      [habitacionid, fechaentrada, fechasalida, fechaentrada, fechasalida, fechaentrada, fechasalida]
-    );
-  
-    if (exists[0].count > 0) {
-      throw new Error('La habitación no está disponible en el rango de fechas');
-    }
-  
-    const diffDays = Math.ceil((new Date(fechasalida) - new Date(fechaentrada)) / (1000 * 60 * 60 * 24));
-    if (diffDays <= 0) {
-      throw new Error('La fecha de salida debe ser mayor que la fecha de entrada');
-    }
-  
-    return diffDays * 120000; // Calculo del monto de la reserva
-  };
-
 // Obtener todas las reservas
 router.get('/', async (req, res) => {
     try {

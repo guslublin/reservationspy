@@ -30,7 +30,7 @@ const Habitaciones = () => {
       const formattedValues = {
         ...values,
         tienetelevision: values.tienetelevision || false,
-        tienefrigobar: values.tienefrigobar || false,  // Asegura que siempre se envíe un valor
+        tienefrigobar: values.tienefrigobar || false, 
       };
   
       console.log("Enviando datos:", formattedValues);

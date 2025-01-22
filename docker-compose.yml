@@ -4,13 +4,13 @@ services:
     image: mysql:8.0
     container_name: mysql_reservationspy
     environment:
-      MYSQL_ROOT_PASSWORD: Pass++2025++
+      MYSQL_ROOT_PASSWORD: Pass2025
       MYSQL_DATABASE: reservationspy
     ports:
-      - "3306:3306"
+      - "3308:3306"
     volumes:
       - mysql-data:/var/lib/mysql
-    restart: always
+    restart: unless-stopped
 
   backend:
     build: ./reservationspy-api
@@ -21,12 +21,16 @@ services:
       - mysql
     environment:
       DB_HOST: mysql
+      DB_PORT: 3306
       DB_USER: root
-      DB_PASSWORD: Pass++2025++
+      DB_PASSWORD: Pass2025
       DB_NAME: reservationspy
     volumes:
       - ./reservationspy-api:/usr/src/app
+      - /usr/src/app/node_modules
+    working_dir: /usr/src/app
     command: ["node", "src/index.js"]
+    restart: unless-stopped
 
   frontend:
     build: ./reservationspy-ui
@@ -37,8 +41,12 @@ services:
       - backend
     volumes:
       - ./reservationspy-ui:/usr/src/app
+      - /usr/src/app/node_modules
+    working_dir: /usr/src/app
     stdin_open: true
     tty: true
+    command: ["npm", "start"]
+    restart: unless-stopped
 
 volumes:
   mysql-data:

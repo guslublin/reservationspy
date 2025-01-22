@@ -6,7 +6,7 @@ Proyecto Fullstack React + Ant Designt + Nodejs + Mysql
 - docker run -d --name mysql-reservationspy \
   -e MYSQL_ROOT_PASSWORD=Pass2025 \
   -e MYSQL_DATABASE=reservationspy \
-  -p 3307:3306 \
+  -p 3306:3306 \
   --restart unless-stopped \
   mysql:latest
 
@@ -41,29 +41,25 @@ CREATE TABLE reserva (
 );
 
 
+# Backend y Frontend (Modo desarrollo)
+
+- Para poder encender en modo desarrollo se debe editar el archivo db.js dentro de config de la api, comentar la linea "mysql" que es para trabajar con docker y descomentar la línea "localhost" para trabajar localmente.
+
+  // host: process.env.DB_HOST || 'mysql',
+  host: process.env.DB_HOST || 'localhost',
+
+- Los env-example, tanto del front como del back se pueden editar y dejar en .env para que tome las variables de entorno en modo desarrolo. 
+
+- Para el despliegue de docker se debe dejar así como está sin los .env
+
+
 # Docker Compose
 - Proyecto dockerizado
+
 - Ejecutar el siguiente comando para levantar el front (React), back(Nodejs) y la base de datos (Mysql).
-- - docker-compose up --build
 
-# Backend
+- - docker-compose up --build -d
 
-mkdir reservationspy-api && cd reservationspy-api
+- - Al finalizar, el proyecto desplegará en localhost:3000, se conectará a la api en el puerto 5000 y la api se comunicará con el mysql en el puerto 3308.
 
-npm init -y
-
-npm install express mysql2 dotenv cors body-parser
-
-
-
-# Frontend
-
-mkdir reservationspy-ui && cd reservationspy-ui
-
-npm init -y
-
-npm install react@18 react-dom@18
-
-npm install web-vitals 
-
-
+- - Para una mejor orientación, leer el docker-compose.yml

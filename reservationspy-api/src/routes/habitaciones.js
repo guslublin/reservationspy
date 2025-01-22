@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Crear una nueva habitación con manejo de errores detallado
+// Crear una nueva habitación
 router.post('/', async (req, res) => {
     const { habitacionpiso, habitacionnro, cantcamas, tienetelevision, tienefrigobar } = req.body;
     try {
